@@ -39,7 +39,7 @@
         return firstName;
     }
 
-    public void SetFirstName (string,newFirstName )
+    public void SetFirstName (string newFirstName )
     {
         firstName = newFirstName;
     }
@@ -61,6 +61,6 @@
         energy = energy + 1;
     }
 
-    }
-
 }
+
+

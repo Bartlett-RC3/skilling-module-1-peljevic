@@ -145,8 +145,6 @@ public class Session_2 : MonoBehaviour {
             Debug.Log(Rc3Tutors[i].GetFirstName());
         }
 
-    // Cyborg OctavianModified = new Cyborg(31, 1.75f, false, "Octavian", "Gheorgiu");
-
 
 	}
 }

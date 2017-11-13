@@ -77,30 +77,36 @@ public class Session_3 : MonoBehaviour
 
       if(moveLeft == true)
         {
-            if(counter<=15)
+        if(counter<=15)
         {
 
             gameObject.transform.Translate(Vector3.left);
-         }
-            else
+            counter++;
+        }
+        else
             {
                 moveLeft = false;
                 moveRight = true;
                 counter =0;
+            }   
+        }
+        if (moveRight == true)
+        {
+            if (counter <= 15)
+            {
+                gameObject.transform.Translate(Vector3.right);
+                counter++;
+            }
+
+
+            else
+            {
+                moveRight = false;
+                moveLeft = true;
+                counter = 0;
             }
         }
-        if(moveRight==true)
-        {
-        gameObject.transform.Translate(Vector3.right);
-        }
-        else
-        {
-            moveRight = false;
-            moveLeft = true;
-            counter ++;
-        } 
-
-
+       
         //Keyboard input
         if(Input.GetKey(KeyCode.Space))
         {

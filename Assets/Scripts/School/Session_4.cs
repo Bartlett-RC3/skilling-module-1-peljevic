@@ -17,7 +17,7 @@ public class Session_4 : MonoBehaviour {
     // Use this for initialization
 	void Start () {
 
-        //CreateColumnCoroutine = DropColumns();
+        CreateColumnCoroutine = DropColumns();
            
         //float x = Random.Range(0, 100);
         //float x = UnityEngine.Random.Range(1, 10); 

@@ -2,49 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScriptForThePrefab : MonoBehaviour {
+public class ScriptForThePrefab : MonoBehaviour
+{
 
     GameObject[] CubeArray;
-    public GameObject Cube_AttachedScript;
+
+    //public GameObject Cube_AttachedScript;
     IEnumerator CreateArray;
     //float counter;
     public Material cubeMaterial;
+    public Camera camera;
 
-
-	void Start () 
+    void Start()
     {
-        CreateArray = MakeArrayOfCubes();
-        StartCoroutine(CreateArray);
         StartCoroutine(ChangeColor());
-	}
-	
-	
-	void Update ()
+    }
+    void Update()
     {
-        
-	}
 
-    IEnumerator MakeArrayOfCubes() 
-    {
-        while (Time.time<30)
+        //public MouseUtils.Button respondToMouseButton = MouseUtils.Button.Left;
+
+        Vector3 castedRayDirection = transform.TransformDirection(Vector3.forward);
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 10000))
+        //Raycasting
+        //  if (Physics.Raycast(transform.position, castedRayDirection, out objectInFront))
         {
-            Vector3 position = new Vector3(1.5f * Time.time, 2f * Time.time, 1.75f * Time.time);
-            //float x = Random.Range(0, 90);
-            //float y = Random.Range(0, 90);
-            //float z = Random.Range(0, 90);
-            Quaternion rotation = new Quaternion(0, 0, 0, 1);
-            GameObject newCubeArray = Instantiate(Cube_AttachedScript, position, rotation);
-            yield return new WaitForSeconds(1);
+            string objectInFrontName = hit.transform.name;
+            Debug.Log("There is an object in front of me! It's name is" + objectInFrontName);
+
+            Destroy(hit.transform.gameObject);
+
         }
+
+
     }
 
     IEnumerator ChangeColor()
     {
-        if (cubeMaterial.color != Color.magenta){
+        if (cubeMaterial.color != Color.magenta)
+        {
             cubeMaterial.color = Color.magenta;
         }
-        else {
-                cubeMaterial.color = Color.blue;
+        else
+        {
+            cubeMaterial.color = Color.blue;
         }
         yield return new WaitForSeconds(0.5f);
     }

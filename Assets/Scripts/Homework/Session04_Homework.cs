@@ -12,40 +12,30 @@ using UnityEngine;
 
 
 
-public class Session04_Homework : MonoBehaviour 
+public class Session04_Homework : MonoBehaviour
 {
+    public GameObject CubePrefab;
+    IEnumerator CreateArray;
 
-
-
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        RaycastHit objectInFront;
-
-       
-        //public MouseUtils.Button respondToMouseButton = MouseUtils.Button.Left;
-
-        Vector3 castedRayDirection = transform.TransformDirection(Vector3.forward);
-        //Raycasting
-        if (Physics.Raycast(transform.position, castedRayDirection, out objectInFront))
-        {
-            string objectInFrontName = objectInFront.transform.name;
-            Debug.Log("There is an object in front of me! It's name is" + objectInFrontName);
-
-            Destroy(objectInFront.transform.gameObject);
-
-        }
-
-    }
-    public void OnMouseEnter()
-    {
-        Destroy(this.transform.gameObject);
+        CreateArray = MakeArrayOfCubes();
+        StartCoroutine(CreateArray);
     }
 
-        public void OnMouseOver()
-        {
-            //if (Input.GetMouseButtonDown((int)respondToMouseButton))
-            //  Destroy(this.gameObject);
-        }
 
+
+    IEnumerator MakeArrayOfCubes()
+    {
+        while (Time.time < 30)
+        {
+            Vector3 position = new Vector3(1.5f * Time.time, 2f * Time.time, 1.75f * Time.time);
+            //float x = Random.Range(0, 90);
+            //float y = Random.Range(0, 90);
+            //float z = Random.Range(0, 90);
+            Quaternion rotation = new Quaternion(0, 0, 0, 1);
+            GameObject newCubeArray = Instantiate(CubePrefab, position, rotation);
+            yield return new WaitForSeconds(1);
+        }
+    }
 }

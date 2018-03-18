@@ -1,73 +1,51 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/*Create a cube prefab that has a script attached to it
-Write a change colour coroutine
-Create a cube array and change destroy them in play mode using ray casting
+
+/*
+ Create a cube prefab that has a script attached to it
+ Write a change colour coroutine
+ Create a cube array and change destroy them in play mode using ray casting
+ Destroy(objectInFront.transform.gameObject);
+ mouse raycast
 */
 
-public class Session04_Homework : MonoBehaviour
+
+
+public class Session04_Homework : MonoBehaviour 
 {
 
-    public GameObject CubeRaincast;
-    public Color cubeColor;
-    public Material cubeMaterial;
-    IEnumerator ColorCoroutine;
 
-
-
-    // Use this for initialization
-    void Start()
-    {
-
-        ColorCoroutine = ChangeColor();
-        cubeMaterial.color = Color.green;
-        /* if(Time.time>10)
-         {
-             StopCoroutine(ColorCoroutine);
-             StopAllCoroutines();
-         } */
-
-
-    }
 
     // Update is called once per frame
     void Update()
     {
+        RaycastHit objectInFront;
 
-        StartCoroutine(ColorCoroutine);
+       
+        //public MouseUtils.Button respondToMouseButton = MouseUtils.Button.Left;
 
-
-        Debug.Log(Time.time);
-    }
-    IEnumerator ChangeColor()
-    {
-        /*{  if (cubeMaterial.color == Color.white)
-            {
-                cubeMaterial.color = Color.blue;
-            }
-            else
-            {
-            cubeMaterial.color = Color.white;
-            }
-        }*/
-
-        for (float f = 1f; f >= 0; f -= 0.1f)
+        Vector3 castedRayDirection = transform.TransformDirection(Vector3.forward);
+        //Raycasting
+        if (Physics.Raycast(transform.position, castedRayDirection, out objectInFront))
         {
-            Color c = cubeMaterial.color;
-            c.a = f;
-            cubeMaterial.color = c;
-            yield return new WaitForSeconds(.1f);
+            string objectInFrontName = objectInFront.transform.name;
+            Debug.Log("There is an object in front of me! It's name is" + objectInFrontName);
+
+            Destroy(objectInFront.transform.gameObject);
 
         }
+
+    }
+    public void OnMouseEnter()
+    {
+        Destroy(this.transform.gameObject);
     }
 
-        Vector3 mouseScreenPosition = Input.mousePosition;
-        RaycastHit objectInFront;
-        Destroy(objectInFront.transform.gameObject);
-   
-
+        public void OnMouseOver()
+        {
+            //if (Input.GetMouseButtonDown((int)respondToMouseButton))
+            //  Destroy(this.gameObject);
+        }
 
 }
-
-   
